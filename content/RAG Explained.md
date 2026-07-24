@@ -32,6 +32,15 @@ Embedding is a translation from human concept (words, sentences, or images) into
 
 In the image above, the AI has learned to score concepts along three hypothetical axes (features): `wings`, `engine`, and `sky`. In a real embedding model, there aren't just 3 dimensions, there are typically hundreds or thousands (e.g. 384, 768, or dimensions). Furthermore, the axes aren't explicitly labeled by human. They are **latent variables** discovered by the neural network during training to represent complex linguistic patterns, context, syntax, and conceptual relationships.
 
+### Calculating Similarity
+
+Once the text is converted into these dense vectors, finding "similar" text becomes a pure liner algebra problem. To solve this problem we usually calculate the **Cosine Similarity**:
+$$
+	\text{Cosine Similarity} = \frac{A \cdot B}{||A|| \space ||B||} = cos(\theta)
+$$
+
+This measures the angle $\theta$ between two vectors. We care about the angle rather than the Euclidean distance ($L_2$ norm) because the magnitude (length) of a vector often correlates with the frequency of the word or the length of the document, whereas the *direction* captures the actual semantic intent. 
+
 ## Why RAG is the Industry Standard
 
 - **Bypasses Retraining:** Training or fine-tuning an LLM on new data is computationally expensive and slow. Updating a RAG system is as simple as inserting a new row into your database.
