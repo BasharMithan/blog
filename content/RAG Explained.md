@@ -22,11 +22,22 @@ Building a RAG system requires setting up a pipeline where the order of operatio
 
 4. **Generation - The final API call**: This data-rich, augmented prompt is sent to the LLM. The model reads the injected context, applies its natural language reasoning capabilities, and generates a precise, heavily grounded answer based on your specific database.
 
+## Chunking
+
+**Chunking** is the process of breaking down large documents into smaller, manageable pieces of text before passing then to the embedding model.
+
+### Common Chunking Strategies
+
+Choosing how to split the text is a balancing act between keeping enough context so the text still makes sense, and keeping it small enough for accurate search.
+-  **Fixed-Size Chunking**: The simplest method. Text is splited by a specific number of chars or tokens. This often cuts sentences or even words in half, destroying the meaning at the edges.
+- **Chunking with Overlap (Sliding Window):** To fixt the problem of cutting sentences in half, "overlap" was introduced. If the chunk size is 500 chats, overlap might be set to 50 chars. This means the last 50 chars of chunk 1 become the first 50 chars of Chuck 2, ensuring no context is lost the boundaries.
+- **Recursive / Semantic Chunks:** This is the industry standard. Instead of cutting blindly by char counts, the system looks for natural breaks in the language. It first tries to split double line breaks (`\n\n` - paragraph). If a paragraph is still too large, it splits by single line breaks (`\n`), then by periods (sentences), and finally by spaces (words) if necessary.
+
 ## Embedding
 
 Embedding is a translation from human concept (words, sentences, or images) into a geometric space that computers can calculate. Instead of treating words as isolated, meaningless ID numbers, an embedding maps them as coordinates in a high-dimensional continuous space where physical distance represents semantic similarity.
 
-![[Pasted image 20260725015713.jpg]]Words mapped as vectors in a 3D semantic space. Source: Around the word - Hypotheses.org
+![[Pasted image 20260726230156.jpg]]
 
 ### The Concept of Dimensions
 
